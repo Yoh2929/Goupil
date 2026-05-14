@@ -1,5 +1,5 @@
 import type { GlobalConfig } from "payload";
-import { canManageContent, canReadPublicContent } from "../collections/access";
+import { canManageContent, canReadPublicContent } from "../access";
 
 export const ActionsPage: GlobalConfig = {
   slug: "actions-page",

@@ -108,7 +108,7 @@ export async function fetchActionsPage(): Promise<CmsActionsPage> {
 }
 
 export async function fetchPosts(): Promise<CmsPostSummary[]> {
-  const response = await fetchJson<PayloadListResponse<PayloadPost>>("/api/posts?limit=50&sort=-createdAt&depth=1");
+  const response = await fetchJson<PayloadListResponse<PayloadPost>>("/api/posts?limit=50&sort=-createdAt&depth=1&where[status][equals]=published");
   return response.docs.map((post) => ({
     id: post.id,
     title: post.title,

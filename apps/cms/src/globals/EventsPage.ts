@@ -1,11 +1,11 @@
 import type { GlobalConfig } from "payload";
-import { canManageContent, canReadPublicContent } from "../collections/access";
+import { canManageEvents, canReadPublicContent } from "../access";
 
 export const EventsPage: GlobalConfig = {
   slug: "events-page",
   access: {
     read: canReadPublicContent,
-    update: canManageContent,
+    update: canManageEvents,
   },
   fields: [
     {

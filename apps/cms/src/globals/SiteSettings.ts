@@ -1,11 +1,11 @@
 import type { GlobalConfig } from "payload";
-import { canManageContent, canReadPublicContent } from "../collections/access";
+import { canManagePlatform, canReadPublicContent } from "../access";
 
 export const SiteSettings: GlobalConfig = {
   slug: "site-settings",
   access: {
     read: canReadPublicContent,
-    update: canManageContent,
+    update: canManagePlatform,
   },
   fields: [
     { name: "siteName", type: "text", required: true, defaultValue: "Goupil" },

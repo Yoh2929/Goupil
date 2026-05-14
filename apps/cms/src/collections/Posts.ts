@@ -1,12 +1,12 @@
 import type { CollectionConfig } from "payload";
-import { canManageContent, canReadPublicContent } from "./access";
+import { canManageContent, canReadPublishedPosts } from "./access";
 
 export const Posts: CollectionConfig = {
   slug: "posts",
   access: {
     create: canManageContent,
     delete: canManageContent,
-    read: canReadPublicContent,
+    read: canReadPublishedPosts,
     update: canManageContent,
   },
   admin: {

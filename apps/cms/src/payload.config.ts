@@ -16,6 +16,10 @@ import { ContactPage } from "./globals/ContactPage";
 import { DonatePage } from "./globals/DonatePage";
 import { JoinPage } from "./globals/JoinPage";
 
+const publicOrigin = process.env.WEB_APP_URL ?? "http://localhost:5173";
+const adminOrigin = process.env.PAYLOAD_ADMIN_URL ?? "http://localhost:3000";
+const allowedOrigins = Array.from(new Set([publicOrigin, adminOrigin]));
+
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET ?? "dev-secret-change-me",
   admin: {
@@ -35,6 +39,6 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(path.dirname(new URL(import.meta.url).pathname), "payload-types.ts"),
   },
-  cors: [process.env.WEB_APP_URL ?? "http://localhost:5173"],
-  csrf: [process.env.WEB_APP_URL ?? "http://localhost:5173"],
+  cors: allowedOrigins,
+  csrf: allowedOrigins,
 });
