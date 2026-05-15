@@ -7,6 +7,9 @@ import { Posts } from "./collections/Posts";
 import { Events } from "./collections/Events";
 import { Media } from "./collections/Media";
 import { Users } from "./collections/Users";
+import { Testimonials } from "./collections/Testimonials";
+import { Partners } from "./collections/Partners";
+import { WorkshopCollections } from "./collections/WorkshopCollections";
 import { SiteSettings } from "./globals/SiteSettings";
 import { HomePage } from "./globals/HomePage";
 import { AboutPage } from "./globals/AboutPage";
@@ -15,6 +18,7 @@ import { EventsPage } from "./globals/EventsPage";
 import { ContactPage } from "./globals/ContactPage";
 import { DonatePage } from "./globals/DonatePage";
 import { JoinPage } from "./globals/JoinPage";
+import { Newsletter } from "./globals/Newsletter";
 
 const publicOrigin = process.env.WEB_APP_URL ?? "http://localhost:5173";
 const adminOrigin = process.env.PAYLOAD_ADMIN_URL ?? "http://localhost:3000";
@@ -28,8 +32,8 @@ export default buildConfig({
       baseDir: path.resolve(path.dirname(new URL(import.meta.url).pathname)),
     },
   },
-  collections: [Users, Media, Pages, Posts, Events],
-  globals: [SiteSettings, HomePage, AboutPage, ActionsPage, EventsPage, ContactPage, DonatePage, JoinPage],
+  collections: [Users, Media, Pages, Posts, Events, Testimonials, Partners, WorkshopCollections],
+  globals: [SiteSettings, HomePage, AboutPage, ActionsPage, EventsPage, ContactPage, DonatePage, JoinPage, Newsletter],
   editor: lexicalEditor(),
   db: sqliteAdapter({
     client: {

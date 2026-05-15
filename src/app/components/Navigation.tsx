@@ -1,12 +1,13 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { Menu, X, Laptop } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 import { primaryCta, publicRoutes, secondaryCta } from "../config/site";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const { theme, toggleTheme } = useTheme();
   const { scrollY } = useScroll();
   const location = useLocation();
 
@@ -21,16 +22,6 @@ export function Navigation() {
     [0, 100],
     ["blur(0px)", "blur(16px)"]
   );
-
-  useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains('dark');
-    setIsDark(isDarkMode);
-  }, []);
-
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle('dark');
-    setIsDark(!isDark);
-  };
 
   return (
     <motion.nav
@@ -77,10 +68,10 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={toggleTheme}
-              aria-label={isDark ? "Activer le mode clair" : "Activer le mode sombre"}
+              aria-label={theme === 'dark' ? "Activer le mode clair" : "Activer le mode sombre"}
               className="p-2.5 rounded-xl hover:bg-muted transition-colors"
             >
-              {isDark ? "🌙" : "☀️"}
+              {theme === 'dark' ? "☀️" : "🌙"}
             </button>
             <Link to={secondaryCta.path}>
               <motion.button
@@ -134,10 +125,10 @@ export function Navigation() {
             <div className="pt-4 border-t border-border space-y-3">
               <button
                 onClick={toggleTheme}
-                aria-label={isDark ? "Activer le mode clair" : "Activer le mode sombre"}
+                aria-label={theme === 'dark' ? "Activer le mode clair" : "Activer le mode sombre"}
                 className="w-full px-4 py-2.5 rounded-lg bg-accent text-accent-foreground font-medium"
               >
-                {isDark ? "Mode clair" : "Mode sombre"}
+                {theme === 'dark' ? "☀️ Mode clair" : "🌙 Mode sombre"}
               </button>
               <Link to={secondaryCta.path} onClick={() => setIsOpen(false)}>
                 <button className="w-full px-4 py-2.5 bg-muted text-foreground rounded-lg font-medium">{secondaryCta.label}</button>

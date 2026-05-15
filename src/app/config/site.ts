@@ -11,8 +11,12 @@ export type PrimaryCta = {
 export const publicRoutes: SiteRoute[] = [
   { label: "L'association", path: "/a-propos" },
   { label: "Nos actions", path: "/nos-actions" },
+  { label: "Réemploi", path: "/reemploi-informatique" },
+  { label: "Inclusion", path: "/inclusion-numerique" },
+  { label: "Ateliers", path: "/ateliers-accompagnement" },
   { label: "Événements", path: "/evenements" },
   { label: "Actualités", path: "/actualites" },
+  { label: "FAQ", path: "/faq" },
   { label: "Contact", path: "/contact" },
 ];
 
