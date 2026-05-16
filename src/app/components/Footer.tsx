@@ -1,10 +1,60 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Laptop, Mail, MapPin, Phone, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { NewsletterSignup } from "./NewsletterSignup";
 import { primaryCta, publicRoutes, secondaryCta } from "../config/site";
+import { fetchNewsletterSettings, fetchSiteSettings } from "../lib/payload-client";
+
+const DEFAULT_NEWSLETTER = {
+  title: "Restez informé",
+  description: "Inscrivez-vous à notre newsletter",
+  placeholder: "Votre email",
+  buttonText: "S'inscrire",
+};
+
+const DEFAULT_SITE = {
+  siteName: "Goupil",
+  tagline: "Association de réemploi informatique et d'inclusion numérique en Bretagne.",
+  supportEmail: "contact@goupil.bzh",
+  socialLinks: [],
+};
 
 export function Footer() {
+  const [newsletter, setNewsletter] = useState(DEFAULT_NEWSLETTER);
+  const [siteSettings, setSiteSettings] = useState(DEFAULT_SITE);
+
+  useEffect(() => {
+    fetchNewsletterSettings()
+      .then((data) => {
+        setNewsletter({
+          title: data.title,
+          description: data.description,
+          placeholder: data.placeholder,
+          buttonText: data.buttonText,
+        });
+      })
+      .catch(() => undefined);
+
+    fetchSiteSettings()
+      .then(setSiteSettings)
+      .catch(() => undefined);
+  }, []);
+
   return (
     <footer className="bg-foreground text-background border-t border-background/10">
+      {/* Newsletter Section */}
+      <div className="border-b border-background/10 px-6 sm:px-8 lg:px-12 py-16">
+        <div className="max-w-7xl mx-auto">
+          <NewsletterSignup
+            variant="compact"
+            title={newsletter.title}
+            description={newsletter.description}
+            buttonText={newsletter.buttonText}
+            placeholder={newsletter.placeholder}
+          />
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
           <div>
@@ -12,21 +62,21 @@ export function Footer() {
               <div className="bg-background text-foreground rounded-xl p-2">
                 <Laptop className="w-6 h-6" />
               </div>
-              <span className="text-2xl font-bold tracking-tight">Goupil</span>
+              <span className="text-2xl font-bold tracking-tight">{siteSettings.siteName}</span>
             </div>
             <p className="text-background/60 mb-8 leading-relaxed font-light">
-              Association de réemploi informatique et d'inclusion numérique en Bretagne.
+              {siteSettings.tagline}
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-11 h-11 rounded-xl bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all hover:scale-110">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-11 h-11 rounded-xl bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all hover:scale-110">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-11 h-11 rounded-xl bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all hover:scale-110">
-                <Linkedin className="w-5 h-5" />
-              </a>
+              {(siteSettings.socialLinks.length > 0 ? siteSettings.socialLinks : [{ url: "#" }, { url: "#" }, { url: "#" }]).slice(0, 3).map((social, index) => (
+                <a
+                  key={`${social.url}-${index}`}
+                  href={social.url}
+                  className="w-11 h-11 rounded-xl bg-background/10 hover:bg-background/20 flex items-center justify-center transition-all hover:scale-110"
+                >
+                  {index === 0 ? <Facebook className="w-5 h-5" /> : index === 1 ? <Instagram className="w-5 h-5" /> : <Linkedin className="w-5 h-5" />}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -65,7 +115,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3 text-background/60 font-light">
                 <Mail className="w-5 h-5 flex-shrink-0" />
-                <span>contact@goupil.bzh</span>
+                <span>{siteSettings.supportEmail}</span>
               </li>
             </ul>
           </div>

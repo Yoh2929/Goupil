@@ -16,6 +16,7 @@ import { AboutPage } from "./globals/AboutPage";
 import { ActionsPage } from "./globals/ActionsPage";
 import { EventsPage } from "./globals/EventsPage";
 import { ContactPage } from "./globals/ContactPage";
+import { FaqPage } from "./globals/FaqPage";
 import { DonatePage } from "./globals/DonatePage";
 import { JoinPage } from "./globals/JoinPage";
 import { Newsletter } from "./globals/Newsletter";
@@ -33,11 +34,11 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Pages, Posts, Events, Testimonials, Partners, WorkshopCollections],
-  globals: [SiteSettings, HomePage, AboutPage, ActionsPage, EventsPage, ContactPage, DonatePage, JoinPage, Newsletter],
+  globals: [SiteSettings, HomePage, AboutPage, ActionsPage, EventsPage, ContactPage, FaqPage, DonatePage, JoinPage, Newsletter],
   editor: lexicalEditor(),
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URL ?? "file:./payload.db",
+      url: process.env.DATABASE_URL ?? "file:./payload-dev.db",
     },
   }),
   typescript: {

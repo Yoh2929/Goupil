@@ -10,25 +10,25 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light')
-  const [mounted, setMounted] = useState(false)
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Initialiser directement depuis le localStorage si disponible
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme') as Theme | null
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
+      return stored || (prefersLight ? 'light' : 'dark')
+    }
+    return 'light'
+  })
 
-  // Charger le thème au montage du composant
+  // Appliquer le thème au montage du composant
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as Theme | null
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches
-    const initialTheme = stored || (prefersLight ? 'light' : 'dark')
-    
-    setTheme(initialTheme)
-    applyTheme(initialTheme)
-    setMounted(true)
-  }, [])
+    applyTheme(theme)
+  }, [theme])
 
   const toggleTheme = () => {
     setTheme((prev) => {
       const newTheme = prev === 'light' ? 'dark' : 'light'
       localStorage.setItem('theme', newTheme)
-      applyTheme(newTheme)
       return newTheme
     })
   }
@@ -40,8 +40,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.remove('dark')
     }
   }
-
-  if (!mounted) return <>{children}</>
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

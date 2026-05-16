@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { canManageContent, canReadPublicContent } from "../access";
+import { createIconFields } from "../fields/iconFields";
 
 export const ActionsPage: GlobalConfig = {
   slug: "actions-page",
@@ -22,7 +23,7 @@ export const ActionsPage: GlobalConfig = {
       name: "impact",
       type: "array",
       fields: [
-        { name: "icon", type: "select", required: true, options: ["monitor", "recycle", "users", "graduation-cap"] },
+        ...createIconFields({ lucideValues: ["monitor", "recycle", "users", "graduation-cap"] }),
         { name: "value", type: "text", required: true },
         { name: "label", type: "text", required: true },
         { name: "color", type: "text", required: true },
@@ -34,7 +35,7 @@ export const ActionsPage: GlobalConfig = {
       fields: [
         { name: "title", type: "text", required: true },
         { name: "description", type: "textarea", required: true },
-        { name: "icon", type: "select", required: true, options: ["recycle", "users", "graduation-cap", "wrench"] },
+        ...createIconFields({ lucideValues: ["recycle", "users", "graduation-cap", "wrench"] }),
         { name: "color", type: "text", required: true },
         { name: "stats", type: "text", required: true },
         { name: "projects", type: "array", fields: [{ name: "text", type: "text", required: true }] },

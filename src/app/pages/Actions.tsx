@@ -1,22 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { GraduationCap, Monitor, Recycle, Users, Wrench } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import type { CmsActionsPage } from "../../../../packages/cms-contracts/src";
+import { CmsIcon } from "../lib/cms-icons";
 import { fetchActionsPage } from "../lib/payload-client";
-
-const actionIconMap = {
-  recycle: Recycle,
-  users: Users,
-  "graduation-cap": GraduationCap,
-  wrench: Wrench,
-} as const;
-
-const impactIconMap = {
-  monitor: Monitor,
-  recycle: Recycle,
-  users: Users,
-  "graduation-cap": GraduationCap,
-} as const;
 
 export function Actions() {
   const [page, setPage] = useState<CmsActionsPage | null>(null);
@@ -62,9 +49,7 @@ export function Actions() {
       <section className="py-12 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {page.impact.map((item, index) => {
-              const Icon = impactIconMap[item.icon];
-              return (
+            {page.impact.map((item, index) => (
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
@@ -73,12 +58,11 @@ export function Actions() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-card border border-border rounded-2xl p-6 text-center hover:shadow-xl transition-shadow"
                 >
-                  <Icon className={`w-10 h-10 mx-auto mb-4 ${item.color}`} />
+                  <CmsIcon source={item} className={`w-10 h-10 mx-auto mb-4 ${item.color}`} imageClassName="h-10 w-10 mx-auto mb-4 object-contain" />
                   <div className="text-3xl font-bold mb-1">{item.value}</div>
                   <div className="text-sm text-muted-foreground">{item.label}</div>
                 </motion.div>
-              );
-            })}
+            ))}
           </div>
         </div>
       </section>
@@ -88,7 +72,6 @@ export function Actions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-20">
             {page.actions.map((action, index) => {
-              const Icon = actionIconMap[action.icon];
               const isEven = index % 2 === 0;
 
               return (
@@ -101,8 +84,8 @@ export function Actions() {
                   className="grid lg:grid-cols-2 gap-12 items-center"
                 >
                   <div className={isEven ? "" : "lg:order-2"}>
-                    <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${action.color} mb-6`}>
-                      <Icon className="w-8 h-8 text-white" />
+                    <div className={`inline-flex items-center justify-center p-4 rounded-2xl bg-gradient-to-br ${action.color} mb-6`}>
+                      <CmsIcon source={action} className="w-8 h-8 text-white" imageClassName="h-8 w-8 object-contain" />
                     </div>
 
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -139,7 +122,7 @@ export function Actions() {
 
                   <div className={isEven ? "" : "lg:order-1"}>
                     <div className={`bg-gradient-to-br ${action.color} rounded-3xl p-12 text-white`}>
-                      <Icon className="w-20 h-20 mb-6 opacity-80" />
+                      <CmsIcon source={action} className="w-20 h-20 mb-6 opacity-80" imageClassName="w-20 h-20 mb-6 object-contain opacity-80" />
                       <h3 className="text-2xl font-bold mb-3">En pratique</h3>
                       <p className="text-white/90">
                         Notre équipe de bénévoles et salariés intervient directement sur le terrain pour rendre le numérique accessible à tous.

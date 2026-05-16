@@ -37,8 +37,8 @@ const routes = [
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ThemeProvider>
         <div className="min-h-screen bg-background text-foreground dark:bg-slate-950 dark:text-slate-50">
           <Navigation />
           <Routes>
@@ -50,7 +50,7 @@ export default function App() {
           <FloatingDonation />
           <ScrollToTop />
         </div>
-      </BrowserRouter>
-    </ThemeProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }

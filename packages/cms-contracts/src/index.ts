@@ -6,6 +6,12 @@ export type CmsImage = {
   alt: string;
 };
 
+export type CmsIconField = {
+  iconDisplay?: "lucide" | "image";
+  icon?: string;
+  iconImage?: CmsImage;
+};
+
 export type CmsPostSummary = {
   id: string;
   title: string;
@@ -53,6 +59,43 @@ export type CmsEventsPage = {
     description: string;
     primaryLabel: string;
     secondaryLabel: string;
+  };
+};
+
+export type CmsNewsletterSettings = {
+  title: string;
+  description: string;
+  placeholder: string;
+  buttonText: string;
+  successMessage: string;
+  emailProvider?: "helloasso" | "mailchimp" | "brevo" | "other";
+  integrationUrl?: string;
+};
+
+export type CmsSiteSettings = {
+  siteName: string;
+  tagline?: string;
+  supportEmail?: string;
+  socialLinks: Array<{
+    url: string;
+  }>;
+};
+
+export type CmsFaqPage = {
+  hero: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  questions: Array<{
+    question: string;
+    answer: string;
+  }>;
+  cta: {
+    title: string;
+    description: string;
+    buttonLabel: string;
+    buttonHref: string;
   };
 };
 
@@ -150,12 +193,16 @@ export type CmsHomePage = {
   impactMetrics: Array<{
     label: string;
     value: string;
-    icon: "monitor" | "users" | "recycle" | "graduation-cap";
+    icon?: "monitor" | "users" | "recycle" | "graduation-cap";
+    iconDisplay?: "lucide" | "image";
+    iconImage?: CmsImage;
   }>;
   missions: Array<{
     title: string;
     description: string;
-    icon: "recycle" | "users" | "graduation-cap" | "wrench";
+    icon?: "recycle" | "users" | "graduation-cap" | "wrench";
+    iconDisplay?: "lucide" | "image";
+    iconImage?: CmsImage;
     accent: string;
   }>;
   projects: Array<{
@@ -227,13 +274,17 @@ export type CmsActionsPage = {
     description: string;
   };
   impact: Array<{
-    icon: "monitor" | "recycle" | "users" | "graduation-cap";
+    icon?: "monitor" | "recycle" | "users" | "graduation-cap";
+    iconDisplay?: "lucide" | "image";
+    iconImage?: CmsImage;
     value: string;
     label: string;
     color: string;
   }>;
   actions: Array<{
-    icon: "recycle" | "users" | "graduation-cap" | "wrench";
+    icon?: "recycle" | "users" | "graduation-cap" | "wrench";
+    iconDisplay?: "lucide" | "image";
+    iconImage?: CmsImage;
     title: string;
     description: string;
     color: string;

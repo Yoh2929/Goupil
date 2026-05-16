@@ -1,5 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { canManageContent, canReadPublicContent } from "../access";
+import { createIconFields } from "../fields/iconFields";
 
 export const HomePage: GlobalConfig = {
   slug: "home-page",
@@ -28,7 +29,7 @@ export const HomePage: GlobalConfig = {
       fields: [
         { name: "label", type: "text", required: true },
         { name: "value", type: "text", required: true },
-        { name: "icon", type: "select", required: true, options: ["monitor", "users", "recycle", "graduation-cap"] },
+        ...createIconFields({ lucideValues: ["monitor", "users", "recycle", "graduation-cap"] }),
       ],
     },
     {
@@ -37,7 +38,7 @@ export const HomePage: GlobalConfig = {
       fields: [
         { name: "title", type: "text", required: true },
         { name: "description", type: "textarea", required: true },
-        { name: "icon", type: "select", required: true, options: ["recycle", "users", "graduation-cap", "wrench"] },
+        ...createIconFields({ lucideValues: ["recycle", "users", "graduation-cap", "wrench"] }),
         { name: "accent", type: "text", required: true },
       ],
     },
